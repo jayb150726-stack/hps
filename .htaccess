@@ -1,0 +1,19 @@
+# Aktifkan RewriteEngine
+RewriteEngine On
+
+# Aturan untuk menyembunyikan .php
+# Jika request adalah untuk file yang ada (.php)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Aturan untuk mengarahkan index.php ke root folder (misal: hps/index.php -> hps/)
+RewriteRule ^index\.php/?$ /hps/ [R=301,L]
+
+# Aturan untuk mengarahkan login.php ke login (localhost/hps/login.php -> localhost/hps/login)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /hps/login\.php\ HTTP/
+RewriteRule ^login\.php$ /hps/login [R=301,L]
+
+# Aturan BARU untuk mengarahkan tambah.php ke tambah (localhost/hps/tambah.php -> localhost/hps/tambah)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /hps/tambah\.php\ HTTP/
+RewriteRule ^tambah\.php$ /hps/tambah [R=301,L]
